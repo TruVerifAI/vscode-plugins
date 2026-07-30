@@ -1,0 +1,15 @@
+{
+  "name": "panel-review",
+  "version": "0.18.0",
+  "description": "TruVerifAI multi-model panel review with proactive gates: four frontier models review high-stakes changes; a local classifier gates risky writes/commits until reviewed. Only a repo fingerprint + content hashes leave your machine.",
+  "author": {
+    "name": "TruVerifAI",
+    "email": "support@truverif.ai",
+    "url": "https://truverif.ai"
+  },
+  "repository": "https://github.com/TruVerifAI/vscode-plugins",
+  "license": "MIT",
+  "skills": "./skills/",
+  "hooks": "./hooks.json",
+  "mcpServers": "./.mcp.json"
+}

@@ -1,0 +1,16 @@
+{
+  "PreToolUse": [
+    {
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/run_gate.sh\" vscode deliberate_gate.py"
+        },
+        {
+          "type": "command",
+          "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/run_gate.sh\" vscode audit_gate.py"
+        }
+      ]
+    }
+  ]
+}
