@@ -1,5 +1,8 @@
 # Changelog — panel-review for VS Code
 
+## 0.18.3
+- `define-custom-floors` skill: broader, more thorough first-draft authoring.
+
 ## 0.18.2
 - Custom floor classes: adds the `define-custom-floors` skill. Gate enforcement
   ships via the npm `@truverifai/init` vendored gates (cli_vendor 0.19.39).

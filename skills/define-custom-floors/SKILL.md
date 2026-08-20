@@ -25,13 +25,40 @@ the whole install.
 
 ## The workflow (five steps — the user approves before anything is saved)
 
-**Step 1 — Interview.** Ask the user briefly: *which code in this repo, if
-changed incorrectly, would be catastrophic for the business?* Get concrete
-modules, directories, config/data files, and (if they know them) the key
-identifiers. Don't over-ask — two or three questions.
+**Step 1 — Interview, then go wider than the answers.** Ask the user briefly:
+*which code in this repo, if changed incorrectly, would be catastrophic for the
+business?* Get concrete modules, directories, config/data files, and (if they
+know them) the key identifiers. Two or three questions is enough for the
+interview itself — but treat their answers as a **starting point, not the full
+scope**. Users name the few areas top of mind and routinely miss others; finding
+the rest is your job in Step 2, not theirs.
 
-**Step 2 — Draft.** Scan the repo yourself (directory names, imports, the
-identifiers the named modules define) and draft `.truverifai/risk.json`:
+**Step 2 — Scan the WHOLE codebase thoroughly, then draft broadly.** Take the
+time to do this properly. A comprehensive first draft the user trims is far
+better than a thin one they have to keep extending (a user should be *removing*
+floors, not repeatedly asking you to add them). Thoroughness beats speed here; it
+is fine for this step to take a while. **Do not stop at the areas the user
+named.**
+
+1. **Map the repo first.** List the top-level directories and modules, the entry
+   points, the config/data files, and the dependency/infra files. Understand what
+   the codebase actually does before proposing floors.
+2. **Enumerate every plausibly-critical domain on your own initiative** — walk
+   this checklist against the real code and include a floor for each domain that
+   actually exists in this repo, whether or not the interview surfaced it:
+   money / billing / credits / pricing / subscriptions; auth / access control /
+   permissions / sessions; secrets / credentials / key management / encryption
+   (including customer-supplied keys); data integrity (schema, migrations, core
+   data models); the core business logic (whatever the product fundamentally
+   *is*); abuse / fraud / rate-limiting defenses; the external API / webhook
+   surface and anything that spends money or issues access; file-upload,
+   deserialization, or other untrusted-input pipelines; compliance / PII / audit
+   trails; infrastructure-as-code, deploy, and production config.
+3. **Err toward INCLUDING a domain.** If it plausibly belongs, add a floor for it
+   with generous but precise path coverage — it is cheaper for the user to delete
+   one than to discover a gap after an incident. Your first draft should be
+   *broader* than what the user named.
+4. Then draft `.truverifai/risk.json`:
 
 ```json
 {
