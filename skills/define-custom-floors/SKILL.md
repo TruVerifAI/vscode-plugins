@@ -107,6 +107,14 @@ Field rules (the validator enforces all of this — you don't have to be perfect
   identifiers, matched case-insensitively in added AND removed code lines, never
   in comments/strings — **make these thorough, not token-sparse**), `patterns`
   (raw regexes, advanced).
+- **Path anchor form — always prefix a file path with `(^|/)`, never a bare `^`.**
+  Write `"(^|/)tier_config\.py$"`, not `"^tier_config\.py$"`. A bare `^filename$`
+  anchors the very start of the path, so it only matches a *root-level* file and
+  silently misses the same name nested (`pkg/tier_config.py`); the `(^|/)` form
+  matches on a path boundary and catches both. Match a whole directory with a
+  trailing-slash prefix: `"(^|/)file_upload/"`. (A `^`-anchored path that already
+  contains a `/`, like `"^config/models\.yml$"`, is a deliberate repo-root path and
+  is fine.) The preview flags a bare anchor with the exact rewrite — apply it.
 - `exclude_paths` (optional but **proposed by default for path floors**): per-floor
   deny-list — carve out tests/, examples/, sandboxes, generated copies. Only
   narrows THIS floor, never built-ins. Surface each one in the step-4 review so the
@@ -136,8 +144,13 @@ npx @truverifai/init floors check --preview
 ```
 
 It validates the schema (collisions, regexes, caps) and shows, per floor, which
-actual tracked files the paths cover, what the exclusions removed, and warns if
-a floor covers nothing. Fix anything it flags.
+actual tracked files the paths cover, what the exclusions removed, and flags
+coverage hazards with `⚠` lines. The command still succeeds (exit 0) when the
+schema is valid — a bare-`^` anchor or a zero-match floor is a *valid* choice, not
+an error — but **you must resolve every `⚠` advisory before showing the user**:
+apply the suggested rewrite, or confirm with the user that the floor is intentional
+(e.g. a deliberate root-only path, or a forward-looking path for a module not
+created yet). Never present a config with unaddressed advisories.
 
 **Step 4 — Review with the user.** Show the file, the coverage table, AND the
 preview output — including every `exclude_paths` entry and what it drops. The

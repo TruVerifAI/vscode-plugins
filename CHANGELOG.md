@@ -1,5 +1,10 @@
 # Changelog — panel-review for VS Code
 
+## 0.18.5
+- `define-custom-floors` skill: explicit `(^|/)` path-anchor rule (a bare `^file$`
+  matches only a root-level file) + resolve every `floors check` advisory before
+  showing the user. (The write-gate `^file$` fix ships via the npm gate update.)
+
 ## 0.18.4
 - `define-custom-floors` skill: workflow now leads with the whole-codebase scan
   and presents the full candidate floor list up front (interview moved to a

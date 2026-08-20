@@ -1,6 +1,6 @@
 {
   "name": "panel-review",
-  "version": "0.18.4",
+  "version": "0.18.5",
   "description": "TruVerifAI multi-model panel review with proactive gates: four frontier models review high-stakes changes; a local classifier gates risky writes/commits until reviewed. Only a repo fingerprint + content hashes leave your machine.",
   "author": {
     "name": "TruVerifAI",
