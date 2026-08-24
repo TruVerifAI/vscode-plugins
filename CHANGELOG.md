@@ -1,5 +1,12 @@
 # Changelog — panel-review for VS Code
 
+## 0.18.6
+- **FIX (dangling MCP config):** the plugin manifest declares
+  `"mcpServers": "./.mcp.json"`, but the `.mcp.json` file itself was missing
+  from the published plugin (a repo-side ignore rule silently excluded it from
+  every prior publish). The file now ships: TruVerifAI HTTP server config with
+  `${TVAI_API_KEY}` Bearer interpolation — no embedded secrets.
+
 ## 0.18.5
 - `define-custom-floors` skill: explicit `(^|/)` path-anchor rule (a bare `^file$`
   matches only a root-level file) + resolve every `floors check` advisory before
