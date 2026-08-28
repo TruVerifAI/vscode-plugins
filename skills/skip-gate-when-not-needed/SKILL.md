@@ -168,12 +168,12 @@ gate printed (coverage then binds to the gate's own hunks, so a cosmetically dri
 releases); on a **write-gate floor block** also forward the `target_hunk_hashes = [...]` line so
 coverage binds deterministically to exactly those hunks.
 - **A genuine floor change you want reviewed → `audit_coding`** (same args); a PASS releases it. This
-  is the **recommended** path for a real auth/secrets/money/migration/guard change. (`deliberate_coding`
-  is only for a still-open design; it does not release a floor change.)
+  is the **recommended** path for a real auth/secrets/money/migration/guard/gate-self change.
+  (`deliberate_coding` is only for a still-open design; it does not release a floor change.)
 - **You believe the gate mis-fired (a false positive — an auth word in a comment, a rename, a test
   fixture) → `confirm_floor` (FREE).** Run `confirm_floor` (`gate_repo` / `gate_diff` /
   `gate_context_id`, plus `target_hunk_hashes` on a write-gate floor block). It runs ONE cheap model;
-  if it agrees the change is token-shape noise it releases the gate. Material / uncertain / gate-self /
+  if it agrees the change is token-shape noise it releases the gate. Material / uncertain /
   non-floor → it releases nothing (run `audit_coding`). For a broader multi-model read, run
   `synthesize_coding` (same args; ~15–30s) — it releases only if the panel agrees it's low-risk.
 - **Tool down + sustained outage →** the **commit** gate prompts a **human** to approve; the write
@@ -187,8 +187,8 @@ coverage binds deterministically to exactly those hunks.
   block — but it's an accountable **override**, not a review: it ships the floor hunk un-reviewed,
   releases at **both** gates, requires a **substantive pre-mortem** (assume it IS a real issue: name
   the failure, who it affects, why it's acceptable), is bound to this one fire and expires in
-  minutes, and lands a distinct override row for the human + feeds calibration. Never releases
-  gate-self. Use it only when none of the real paths above fit — not to save time on a genuine change.
+  minutes, and lands a distinct override row for the human + feeds calibration. Use it only when
+  none of the real paths above fit — not to save time on a genuine change.
 
 A reason code can also be **suspended** for a repo (calibration, off by default) if its skips keep
 preceding real findings — a suspended skip is denied and you run the review.

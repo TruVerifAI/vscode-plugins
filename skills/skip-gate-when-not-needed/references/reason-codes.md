@@ -69,7 +69,11 @@ un-reviewed. It:
   the gate and needs a fresh accept-risk),
 - lands a **distinct override row** on the admin dashboard (repo, hunks, your pre-mortem, timestamp)
   and feeds the skip→incident calibration loop,
-- can **never** release a **gate-self** change (the gate's own files always need a real audit).
+- releases a `gate_self` (gate's-own-code) floor hunk the same way it releases any other floor's —
+  since the 2026-08 unification, gate-self is an ordinary hard floor, not a separate un-skippable
+  tier. (Scope unchanged elsewhere: judgment/path skip codes and an uncovered `recent_pass` still
+  never release a `gate_self` hunk — only the floor paths do: a real review PASS, SYNTH_CONFIRM,
+  `confirm_floor`, or this override.)
 
 To release a floor change *without* accepting un-reviewed risk, **match the tool to your situation**
 (the gate's deny message spells this out). **It works the same at the commit gate and the write gate.**
