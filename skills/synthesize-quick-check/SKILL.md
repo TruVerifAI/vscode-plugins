@@ -77,11 +77,11 @@ Pass the gate context the block message printed — the same fields either tool 
 - **`gate_diff`** — the change being gated (the staged diff, or the content being written).
 - **`gate_context_id`** — the `gc_…` the gate printed. **Pass it** — the SYNTH_CONFIRM then binds to
   the gate's OWN recorded floor hunks, so a cosmetically drifted `gate_diff` still releases.
-- **`target_hunk_hashes`** — the **write gate** prints a `target_hunk_hashes = [...]` line on every
-  block. **Copy it verbatim.** The SYNTH_CONFIRM binds to the **floor** hunks among them (a synthesize
-  confirmation only ever covers floor), so it releases even when the write gate's diff shape differs
-  from your `gate_diff`. (The commit gate prints no such line; there, the `gate_context_id` binds
-  coverage on its own.)
+- **`target_hunk_hashes`** — both the **write gate and the commit gate** print a
+  `target_hunk_hashes = [...]` line on every block. **Copy it verbatim.** The SYNTH_CONFIRM binds to
+  the **floor** hunks among them (a synthesize confirmation only ever covers floor), so it releases
+  even when the gate's diff shape differs from your `gate_diff`. (An older gate client's commit
+  message may omit the line; there, the `gate_context_id` binds coverage on its own.)
 - **`gate_session_id`** — when the gate provided one.
 
 If the panel agrees the change is low-risk, the server mints a **SYNTH_CONFIRM** bound to the

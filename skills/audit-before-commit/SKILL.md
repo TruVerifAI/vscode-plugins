@@ -36,6 +36,8 @@ Skip it for: formatting or comment-only edits, doc/README updates, single-line o
 
 1. **Frame the change for the audit.** The `proposed_action` field should be 2-4 sentences summarizing WHAT changes and WHY — NOT the raw diff. The raw diff goes into `relevant_code`. See `references/structured-inputs.md` for the populate rules per field.
 
+   **Pass the real diff, never a summary or an abridged version** — eliding sections manufactures findings about exactly what was elided. **Large diffs (past roughly 50 KB): split into 2-3 calls chunked by file or section** rather than one oversized call — a single huge diff can cut off the panel's structured verdict (the response comes back `degraded: true` with `degraded_reason: assessment_parse_failure` and an empty findings list; the prose critique may still read fine, but no PASS can be minted from it). Machine-generated duplicates (regenerated bundles, lockfiles) may be summarized in one disclosed line instead of pasted, as long as every hand-written hunk is passed verbatim.
+
 2. **Call `audit_coding`** (it may appear as `mcp__truverifai__audit_coding` depending on your client — use whichever is available) with these fields populated:
    - `proposed_action` — your 2-4 sentence framing
    - `relevant_code` — the diff or the before/after for the changed code

@@ -165,14 +165,14 @@ you are not deadlocked — clear the other one.
 
 To release a floor change, **match the tool to your situation** and forward the `gate_context_id` the
 gate printed (coverage then binds to the gate's own hunks, so a cosmetically drifted `gate_diff` still
-releases); on a **write-gate floor block** also forward the `target_hunk_hashes = [...]` line so
-coverage binds deterministically to exactly those hunks.
+releases); when the block printed a `target_hunk_hashes = [...]` line (write and commit gates both
+do), also forward it so coverage binds deterministically to exactly those hunks.
 - **A genuine floor change you want reviewed → `audit_coding`** (same args); a PASS releases it. This
   is the **recommended** path for a real auth/secrets/money/migration/guard/gate-self change.
   (`deliberate_coding` is only for a still-open design; it does not release a floor change.)
 - **You believe the gate mis-fired (a false positive — an auth word in a comment, a rename, a test
   fixture) → `confirm_floor` (FREE).** Run `confirm_floor` (`gate_repo` / `gate_diff` /
-  `gate_context_id`, plus `target_hunk_hashes` on a write-gate floor block). It runs ONE cheap model;
+  `gate_context_id`, plus `target_hunk_hashes` when the block printed one). It runs ONE cheap model;
   if it agrees the change is token-shape noise it releases the gate. Material / uncertain /
   non-floor → it releases nothing (run `audit_coding`). For a broader multi-model read, run
   `synthesize_coding` (same args; ~15–30s) — it releases only if the panel agrees it's low-risk.

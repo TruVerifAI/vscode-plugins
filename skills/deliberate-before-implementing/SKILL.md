@@ -74,6 +74,11 @@ still open, pass the gate context the block message printed so a PASS writes a r
 `gate_diff` / `gate_session_id`, not `gate_context_id` or `target_hunk_hashes`. The hunk-precise
 `gate_context_id` binding is `audit_coding` / `synthesize_coding` only.)
 
+**A proactive (pre-code) deliberation never releases a gate, by design.** A design can be right
+while the code implementing it is wrong, so gate releases require a review of the actual diff —
+that is `audit_coding` (or `synthesize_coding` for a floor confirm), not a design deliberation.
+Don't budget a proactive `deliberate_coding` as a future gate release; budget it as design input.
+
 A PASS (`proceed` / `proceed_with_caveats`) releases the gate on retry **for a non-floor design
 write**. For a **floor-class** write (auth / secrets / money / migration / removed-guard),
 release it with an

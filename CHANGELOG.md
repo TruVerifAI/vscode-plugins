@@ -1,5 +1,11 @@
 # Changelog — panel-review for VS Code
 
+## 0.18.8
+- Skills copy sync with gate core 0.19.46: the commit gate now also prints
+  `target_hunk_hashes` (A5), so the skip-gate and audit skills no longer
+  describe it as write-gate-only; matching updates in the deliberate and
+  synthesize skills and the reason-codes reference.
+
 ## 0.18.6
 - **FIX (dangling MCP config):** the plugin manifest declares
   `"mcpServers": "./.mcp.json"`, but the `.mcp.json` file itself was missing

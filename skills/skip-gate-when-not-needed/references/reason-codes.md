@@ -77,9 +77,10 @@ un-reviewed. It:
 
 To release a floor change *without* accepting un-reviewed risk, **match the tool to your situation**
 (the gate's deny message spells this out). **It works the same at the commit gate and the write gate.**
-Always pass the `gate_context_id` the gate printed (it binds coverage to the gate's own hunks). On a
-**write-gate** block, also copy the `target_hunk_hashes = [...]` line **whole and verbatim** — it lists
-every risky hunk of the change, and a partial list narrows what your review covers:
+Always pass the `gate_context_id` the gate printed (it binds coverage to the gate's own hunks). When
+the block printed a `target_hunk_hashes = [...]` line (**write and commit gates both do**), also copy
+it **whole and verbatim** — it lists every risky hunk of the change, and a partial list narrows what
+your review covers:
 
 - **A genuine floor change you want reviewed →** run `audit_coding` with your `proposed_action` +
   `gate_repo`/`gate_diff`/`gate_context_id`; a PASS releases it. This is the **recommended** path for a
